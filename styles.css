@@ -941,15 +941,20 @@ button {
 
 /* ---------- MEMBERSHIP ---------- */
 #membership {
-  padding: 140px 0;
+  padding: 0;
   background: var(--black);
+  overflow: hidden;
 }
 
 .membership-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: center;
+  gap: 0;
+  align-items: stretch;
+}
+
+.membership-content {
+  padding: 120px 80px 120px calc(max((100vw - 1280px) / 2, 40px));
 }
 
 .membership-content .section-label {
@@ -1000,13 +1005,15 @@ button {
 .membership-visual {
   position: relative;
   overflow: hidden;
+  min-height: 500px;
 }
 
 .membership-video-wrapper {
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  min-height: 450px;
 }
 
 .membership-video {
@@ -1479,18 +1486,21 @@ html.lenis, html.lenis body {
 
   /* Membership */
   #membership {
-    padding: 80px 0;
+    padding: 0;
   }
 
   .membership-wrapper {
     grid-template-columns: 1fr;
-    gap: 48px;
+    gap: 0;
   }
 
-  .membership-card-display {
-    max-width: 300px;
-    padding: 40px;
-    margin: 0 auto;
+  .membership-content {
+    padding: 80px 20px;
+  }
+
+  .membership-visual {
+    min-height: 350px;
+    position: relative;
   }
 
   /* Testimonials */
