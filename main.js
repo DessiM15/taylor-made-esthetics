@@ -450,33 +450,19 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // --- MEMBERSHIP: card reveal with scale ---
-    gsap.fromTo('.membership-card-display', {
-      scale: 0.8,
-      opacity: 0,
-      rotateY: -10
+    // --- MEMBERSHIP: video reveal with scale ---
+    gsap.fromTo('.membership-video-wrapper', {
+      scale: 0.9,
+      opacity: 0
     }, {
       scale: 1,
       opacity: 1,
-      rotateY: 0,
       duration: 1.2,
       ease: 'power3.out',
       scrollTrigger: {
         trigger: '#membership',
         start: 'top 65%',
         once: true
-      }
-    });
-
-    // Membership card parallax
-    gsap.to('.membership-card-display', {
-      yPercent: -15,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '#membership',
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 1
       }
     });
 
