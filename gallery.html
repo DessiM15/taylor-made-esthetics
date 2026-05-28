@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery | Taylor Made Esthetics</title>
+  <meta name="description" content="Browse the Taylor Made Esthetics gallery. See our luxury skincare treatments, results, and private suite experience in Pearland, TX.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://taylormadeesthetics.net/gallery.html">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Gallery | Taylor Made Esthetics">
+  <meta property="og:description" content="Browse the Taylor Made Esthetics gallery. Luxury skincare treatments in Pearland, TX.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://taylormadeesthetics.net/gallery.html">
+  <meta property="og:image" content="https://taylormadeesthetics.net/assets/tme-logo-white.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="gallery-page loading">
+
+  <!-- ========== NAVIGATION ========== -->
+  <nav id="navbar" class="scrolled">
+    <div class="nav-container">
+      <a href="index.html#hero" class="nav-logo">
+        <img src="assets/tme-logo-white.png" alt="Taylor Made Esthetics">
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#services-her">For Her</a></li>
+        <li><a href="index.html#services-him">For Him</a></li>
+        <li><a href="index.html#experience">Experience</a></li>
+        <li><a href="index.html#membership">Membership</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+        <li><a href="gallery.html" class="active">Gallery</a></li>
+      </ul>
+      <a href="#" onclick="openBooking(); return false;" class="nav-book-btn">Book Now</a>
+      <button class="nav-hamburger" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+      <ul class="mobile-links">
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#services-her">For Her</a></li>
+        <li><a href="index.html#services-him">For Him</a></li>
+        <li><a href="index.html#experience">Experience</a></li>
+        <li><a href="index.html#membership">Membership</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="#" onclick="openBooking(); return false;" class="mobile-book-btn">Book Now</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+
+  <!-- ========== GALLERY HERO ========== -->
+  <section class="gallery-hero">
+    <div class="container">
+      <p class="section-label reveal-up">Portfolio</p>
+      <h2 class="section-title reveal-up">The <em>Gallery</em></h2>
+      <p class="section-subtitle reveal-up" style="color: rgba(255,255,255,0.5); margin: 0 auto;">A look inside the Taylor Made Esthetics experience.</p>
+    </div>
+  </section>
+
+  <!-- ========== GALLERY GRID ========== -->
+  <section>
+    <div class="container">
+      <div class="gallery-grid">
+        <div class="gallery-item reveal-up" onclick="openLightbox(this)">
+          <img src="assets/gallery-1.jpg" alt="Taylor Made Esthetics gallery" loading="lazy">
+        </div>
+        <div class="gallery-item reveal-up" onclick="openLightbox(this)">
+          <img src="assets/gallery-2.png" alt="Taylor Made Esthetics gallery" loading="lazy">
+        </div>
+        <div class="gallery-item reveal-up" onclick="openLightbox(this)">
+          <video src="assets/gallery-3.MOV" autoplay muted loop playsinline></video>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="assets/tme-logo-white.png" alt="Taylor Made Esthetics" class="footer-logo">
+          <p>Luxury skincare and spa services in Pearland, TX. Personalized treatments, real results.</p>
+        </div>
+        <div class="footer-nav">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#services-her">Services</a></li>
+            <li><a href="index.html#membership">Membership</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+          </ul>
+        </div>
+        <div class="footer-services">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="index.html#services-her">Luxury Facials</a></li>
+            <li><a href="index.html#services-her">Body Waxing</a></li>
+            <li><a href="index.html#services-her">Spa Packages</a></li>
+            <li><a href="index.html#services-him">Men's Grooming</a></li>
+          </ul>
+        </div>
+        <div class="footer-social">
+          <h4>Follow Us</h4>
+          <div class="social-links">
+            <a href="https://www.instagram.com/taylormadeesthetics" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="https://www.facebook.com/taylormadeesthetics" target="_blank" rel="noopener" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+            </a>
+            <a href="https://www.tiktok.com/@taylormadeesthetics" target="_blank" rel="noopener" aria-label="TikTok">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12a4 4 0 104 4V4a5 5 0 005 5"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Taylor Made Esthetics. All rights reserved.</p>
+        <p class="footer-tagline">Self-care isn't selfish. It's necessary.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== MOBILE STICKY BOOK ========== -->
+  <div class="mobile-book-bar">
+    <a href="#" onclick="openBooking(); return false;" class="mobile-book-link">Book Now</a>
+  </div>
+
+  <!-- Gallery Lightbox -->
+  <div class="gallery-lightbox" id="lightbox" onclick="closeLightbox(event)">
+    <span class="lightbox-close" onclick="closeLightbox(event)">&times;</span>
+    <div id="lightbox-content"></div>
+  </div>
+
+  <!-- Boulevard Self-Booking Overlay -->
+  <script>
+    (function (a) {
+      var b = {
+        businessId: 'c2defb7e-543d-4252-9bdb-28cbabe615d9',
+      };
+      var c = a.createElement('script');
+      var d = a.querySelector('script');
+      c.src = 'https://static.joinboulevard.com/injector.min.js';
+      c.async = true;
+      c.onload = function () {
+        blvd.init(b);
+      };
+      d.parentNode.insertBefore(c, d);
+    })(document);
+
+    function openBooking() {
+      if (window.blvd && blvd.openBookingWidget) {
+        blvd.openBookingWidget();
+      }
+    }
+  </script>
+
+  <!-- Gallery Lightbox Script -->
+  <script>
+    function openLightbox(item) {
+      const lightbox = document.getElementById('lightbox');
+      const content = document.getElementById('lightbox-content');
+      const media = item.querySelector('img, video');
+
+      if (media.tagName === 'VIDEO') {
+        const video = document.createElement('video');
+        video.src = media.src;
+        video.controls = true;
+        video.autoplay = true;
+        video.style.maxWidth = '90vw';
+        video.style.maxHeight = '85vh';
+        video.style.borderRadius = '4px';
+        content.innerHTML = '';
+        content.appendChild(video);
+      } else {
+        const img = document.createElement('img');
+        img.src = media.src;
+        img.alt = media.alt;
+        content.innerHTML = '';
+        content.appendChild(img);
+      }
+
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox(e) {
+      if (e.target === document.getElementById('lightbox') || e.target.classList.contains('lightbox-close')) {
+        const lightbox = document.getElementById('lightbox');
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+        const video = document.querySelector('#lightbox-content video');
+        if (video) video.pause();
+      }
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        const lightbox = document.getElementById('lightbox');
+        if (lightbox.classList.contains('active')) {
+          lightbox.classList.remove('active');
+          document.body.style.overflow = '';
+          const video = document.querySelector('#lightbox-content video');
+          if (video) video.pause();
+        }
+      }
+    });
+  </script>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
