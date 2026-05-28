@@ -246,19 +246,37 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // --- ABOUT: IMAGE REVEAL ---
-    const aboutImg = document.querySelector('.about-image-full');
-    if (aboutImg) {
-      gsap.fromTo(aboutImg, {
+    // --- ABOUT: PHOTOS REVEAL ---
+    const aboutPhotos = document.querySelector('.about-photos');
+    if (aboutPhotos) {
+      gsap.fromTo('.about-photo', {
         opacity: 0,
-        y: 40,
-        scale: 0.98
+        y: 50,
+        scale: 0.9
       }, {
         opacity: 1,
         y: 0,
         scale: 1,
-        duration: 1.2,
+        stagger: 0.15,
+        duration: 1,
         ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '#about',
+          start: 'top 70%',
+          once: true
+        }
+      });
+      gsap.fromTo('.about-logo', {
+        opacity: 0,
+        scale: 0.5,
+        rotation: -15
+      }, {
+        opacity: 1,
+        scale: 1,
+        rotation: 0,
+        duration: 1,
+        delay: 0.2,
+        ease: 'back.out(1.4)',
         scrollTrigger: {
           trigger: '#about',
           start: 'top 70%',
