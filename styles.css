@@ -1321,9 +1321,11 @@ button {
 
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
   padding-bottom: 120px;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 .gallery-item {
