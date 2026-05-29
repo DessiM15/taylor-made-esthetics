@@ -31,15 +31,27 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function initEverything() {
-    initLenis();
+    const isGallery = document.body.classList.contains('gallery-page');
+
+    if (!isGallery) {
+      initLenis();
+    }
+
     initNavbar();
     initMobileMenu();
-    initSmoothAnchors();
-    initServiceTabs();
-    initTestimonials();
+
+    if (!isGallery) {
+      initSmoothAnchors();
+      initServiceTabs();
+      initTestimonials();
+    }
+
     initRevealUp();
-    initGSAPAnimations();
-    initActiveNav();
+
+    if (!isGallery) {
+      initGSAPAnimations();
+      initActiveNav();
+    }
   }
 
   // ========== LENIS SMOOTH SCROLL ==========
@@ -61,6 +73,14 @@ document.addEventListener('DOMContentLoaded', () => {
   function initNavbar() {
     const navbar = document.getElementById('navbar');
     const mobileBookBar = document.querySelector('.mobile-book-bar');
+    const isGallery = document.body.classList.contains('gallery-page');
+
+    // Gallery page keeps navbar always scrolled
+    if (isGallery) {
+      navbar.classList.add('scrolled');
+      if (mobileBookBar) mobileBookBar.classList.add('visible');
+      return;
+    }
 
     window.addEventListener('scroll', () => {
       const scrollY = window.scrollY;
