@@ -463,7 +463,7 @@ h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 500; line-height
 /* ---------- gallery ---------- */
 .gallery-grid { columns: 3; column-gap: 20px; }
 .gallery-item { break-inside: avoid; margin-bottom: 20px; padding: 6px; }
-.gallery-item video:focus-visible, .gallery-open:focus-visible { outline: 3px solid var(--pink-deep); outline-offset: 4px; }
+.gallery-item video:focus, .gallery-item video:focus-within, .gallery-open:focus-visible { outline: 3px solid var(--pink-deep); outline-offset: 4px; }
 .gallery-video { border-radius: 12px; }
 .gallery-video:focus-within { outline: 3px solid var(--pink-deep); outline-offset: 4px; }
 .gallery-item img, .gallery-item video { width: 100%; height: auto; border-radius: 12px; }
