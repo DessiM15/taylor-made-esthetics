@@ -48,7 +48,7 @@ body::before {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background: #fbe9ef url('/assets/marble-pink-gold.jpg') center / cover no-repeat;
+  background: linear-gradient(rgba(255, 247, 250, 0.5), rgba(255, 247, 250, 0.5)), #fbe9ef url('/assets/marble-pink-gold.jpg') center / cover no-repeat;
 }
 img, video { max-width: 100%; height: auto; display: block; }
 ul, ol { list-style: none; }
