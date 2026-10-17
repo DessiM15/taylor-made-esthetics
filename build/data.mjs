@@ -536,10 +536,14 @@ export const ADDONS = {
 };
 
 export const QUICK_BOOK = [
-  { label: 'Waxing & Sugaring', sub: 'Smooth. Gentle. Confident.', icon: 'wax', path: BLVD.cats.waxing, href: 'services#waxing' },
-  { label: 'Customized Facials', sub: 'Cleanse. Hydrate. Rejuvenate.', icon: 'face', path: BLVD.cats.skincare, href: 'services#her-facials' },
-  { label: 'Acne & Corrective Care', sub: 'Clear skin. Real results.', icon: 'clear', path: '/cart/menu/Skincare/s_cb1bc160-b62e-424c-93b9-dd068750fec9', href: 'services/anti-acne-facial' },
-  { label: 'Hydration & Rejuvenation', sub: 'Nourish. Restore. Glow.', icon: 'drop', path: '/cart/menu/Skincare/s_92da8177-f385-485a-beff-4a1cbc606830', href: 'services/hydrafacial' },
+  { label: 'Waxing & Sugaring', sub: 'Smooth. Gentle. Confident.', path: BLVD.cats.waxing, href: 'services#waxing',
+    img: 'assets/taylor-portrait.jpg', pos: '50% 20%', alt: 'Taylor smiling in black scrubs inside her Pearland treatment suite.' },
+  { label: 'Customized Facials', sub: 'Cleanse. Hydrate. Rejuvenate.', path: BLVD.cats.skincare, href: 'services#her-facials',
+    img: 'assets/taylor-facial-massage.jpg', pos: '50% 30%', alt: 'Taylor massaging a client\'s face during a facial beside a pink ring light.' },
+  { label: 'Acne & Corrective Care', sub: 'Clear skin. Real results.', path: '/cart/menu/Skincare/s_cb1bc160-b62e-424c-93b9-dd068750fec9', href: 'services/anti-acne-facial',
+    img: 'assets/client-glow-closeup.jpg', pos: '50% 30%', alt: 'Close-up of a client\'s clear, glowing skin after a corrective facial.' },
+  { label: 'Hydration & Rejuvenation', sub: 'Nourish. Restore. Glow.', path: '/cart/menu/Skincare/s_92da8177-f385-485a-beff-4a1cbc606830', href: 'services/hydrafacial',
+    img: 'assets/taylor-steam-facial.jpg', pos: '60% 45%', alt: 'Taylor directing a facial steamer over a relaxed client in a pink headband.' },
 ];
 
 export const EXPERIENCE = [
@@ -568,9 +572,9 @@ export const GALLERY = [
   { type: 'video', src: 'assets/client-first-facial.mp4', poster: 'assets/client-first-facial-poster.jpg', w: 720, h: 1280,
     alt: 'Short client video captioned "Come with me to get my first facial ever and my wedding in 9 days", showing her on the treatment bed in a pink headband with the caption "Glowing results".',
     caption: 'A bride-to-be\'s first facial, nine days before her wedding.' },
-  { type: 'image', src: 'assets/taylor-facial-massage.jpg', w: 900, h: 1125,
+  { type: 'image', src: 'assets/taylor-facial-massage.jpg', w: 802, h: 900,
     alt: 'Taylor, in black scrubs, gently massaging a client\'s face during a facial, with a pink ring light beside the bed.' },
-  { type: 'image', src: 'assets/taylor-facial-treatment.jpg', w: 900, h: 1125,
+  { type: 'image', src: 'assets/taylor-facial-treatment.jpg', w: 843, h: 900,
     alt: 'Taylor applying product to a client\'s cheeks with both hands during a facial, with a ring light and skincare equipment in the background.' },
   { type: 'image', src: 'assets/taylor-portrait.jpg', w: 1000, h: 1888,
     alt: 'Taylor smiling in black scrubs beside her appointment board in the suite.' },

@@ -351,20 +351,20 @@ ${header('')}
     </div>
   </section>
 
-  <section class="section quick-book" id="quick-book" aria-labelledby="quick-book-title">
+  <section class="quick-book" id="quick-book" aria-labelledby="quick-book-title">
     <div class="container">
-      <div class="quick-book-panel gold-frame">
-        <h2 class="quick-book-title" id="quick-book-title"><span class="script">Book in seconds</span> Choose where to start</h2>
-        <ul class="quick-book-grid">
-          ${QUICK_BOOK.map((q) => `<li class="quick-book-item">
-            <span class="quick-book-icon">${icon(q.icon)}</span>
-            <h3 class="quick-book-label"><a href="/${q.href}">${esc(q.label)}</a></h3>
-            <p class="quick-book-sub">${esc(q.sub)}</p>
-            ${bookLink(q.path, 'Book now', 'quick-book-link')}
-          </li>`).join('\n')}
-        </ul>
-      </div>
+      <h2 class="quick-book-title" id="quick-book-title"><span class="script">Book in seconds</span> Choose where to start</h2>
     </div>
+    <ul class="quick-book-grid">
+      ${QUICK_BOOK.map((q) => `<li class="quick-book-item">
+        <img src="/${q.img}" alt="${esc(q.alt)}" loading="lazy" style="object-position:${q.pos}">
+        <div class="quick-book-content">
+          <h3 class="quick-book-label"><a href="/${q.href}">${esc(q.label)}</a></h3>
+          <p class="quick-book-sub">${esc(q.sub)}</p>
+          ${bookLink(q.path, 'Book now', 'quick-book-link')}
+        </div>
+      </li>`).join('\n')}
+    </ul>
   </section>
 
   <div class="marquee" aria-hidden="true">
@@ -380,8 +380,8 @@ ${header('')}
           <img src="/assets/taylor-arch.jpg" alt="Taylor, a licensed esthetician with blonde curls and black scrubs, smiling on a pink velvet sofa in her Pearland suite." width="515" height="575" loading="lazy">
         </div>
         <div class="about-thumbs">
-          <img src="/assets/taylor-facial-massage.jpg" alt="Taylor gently massaging a client's face during a facial, with a pink ring light beside the bed." width="900" height="1125" loading="lazy">
-          <img src="/assets/taylor-facial-treatment.jpg" alt="Taylor applying product to a client's cheeks with both hands during a facial." width="900" height="1125" loading="lazy">
+          <img src="/assets/taylor-facial-massage.jpg" alt="Taylor gently massaging a client's face during a facial, with a pink ring light beside the bed." width="802" height="900" loading="lazy">
+          <img src="/assets/taylor-facial-treatment.jpg" alt="Taylor applying product to a client's cheeks with both hands during a facial." width="843" height="900" loading="lazy">
         </div>
       </div>
       <div class="about-content panel">
