@@ -177,11 +177,11 @@
 
   // ---------- background videos ----------
   Array.prototype.forEach.call(document.querySelectorAll('video[data-autoplay]'), function (video) {
-    var btn = video.parentElement.querySelector('[data-video-toggle]');
+    var btn = video.parentElement.querySelector('[data-video-toggle]') || video.closest('section') && video.closest('section').querySelector('[data-video-toggle]');
     var setBtn = function (paused) {
       if (!btn) return;
       btn.setAttribute('aria-pressed', String(paused));
-      btn.setAttribute('aria-label', paused ? 'Play video' : 'Pause video');
+      btn.setAttribute('aria-label', paused ? 'Play background video' : 'Pause background video');
     };
     if (reducedMotion) { setBtn(true); }
     else {

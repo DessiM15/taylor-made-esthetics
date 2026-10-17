@@ -319,8 +319,14 @@ export function homePage() {
 ${header('')}
 <main id="main" tabindex="-1">
 
-  <section class="hero" aria-labelledby="hero-title">
-    <div class="container hero-grid">
+  <section class="hero hero-bleed" aria-labelledby="hero-title">
+    <div class="hero-bg" aria-hidden="true">
+      <video class="hero-video" muted loop playsinline preload="metadata" poster="/assets/hero-facial-poster.jpg" data-autoplay>
+        <source src="/assets/hero-facial.mp4" type="video/mp4">
+      </video>
+      <div class="hero-wash"></div>
+    </div>
+    <div class="container hero-inner">
       <div class="hero-content">
         <p class="hero-script">Welcome to Taylor Made Esthetics</p>
         <h1 class="hero-title" id="hero-title">Pearland Skincare and Body Waxing</h1>
@@ -336,19 +342,8 @@ ${header('')}
           <li><span class="trust-dot" aria-hidden="true"></span><span>Private treatment suite</span></li>
         </ul>
       </div>
-      <div class="hero-media">
-        <div class="arch gold-frame">
-          <video class="hero-video" muted loop playsinline preload="metadata" poster="/assets/hero-facial-poster.jpg" aria-label="A client receiving a facial: a brush applies a creamy mask across her face while she rests with a towel wrap." data-autoplay>
-            <source src="/assets/hero-facial.mp4" type="video/mp4">
-          </video>
-          <button type="button" class="video-toggle" data-video-toggle aria-label="Pause video" aria-pressed="false">${ICONS.pause}${ICONS.play}</button>
-        </div>
-        <div class="hero-badge gold-frame">
-          <span class="hero-badge-script">Taylor Made</span>
-          <span class="hero-badge-caps">Where healthy skin meets confidence</span>
-        </div>
-      </div>
     </div>
+    <button type="button" class="video-toggle hero-toggle" data-video-toggle data-video-target="hero" aria-label="Pause background video" aria-pressed="false">${ICONS.pause}${ICONS.play}</button>
   </section>
 
   <section class="quick-book" id="quick-book" aria-labelledby="quick-book-title">
