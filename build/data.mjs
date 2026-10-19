@@ -30,6 +30,8 @@ export const SITE = {
     tiktok: 'https://www.tiktok.com/@taylormadeesthetics',
   },
   googleMaps: 'https://www.google.com/maps/place/Taylor+Made+Esthetics,+11200+W+Broadway+St,+Pearland,+TX+77584/@29.5529388,-95.3922782,17z/',
+  googlePlaceId: 'ChIJaWoQw9HtQIYRZee-ySU6ZFw',
+  googleReview: 'https://search.google.com/local/writereview?placeid=ChIJaWoQw9HtQIYRZee-ySU6ZFw',
   mapEmbed: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3472.5!2d-95.2861!3d29.5635!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjnCsDMzJzQ4LjYiTiA5NcKwMTcnMTAuMCJX!5e0!3m2!1sen!2sus!4v1',
   elfsightApp: 'ef6a465c-379a-4ef6-9faf-fe41f84d82e6',
 };
@@ -553,11 +555,13 @@ export const EXPERIENCE = [
   { title: 'Professional Products', text: 'Only professional-grade skincare and premium hard wax touch your skin. No shortcuts, no harsh fillers.', icon: 'products' },
 ];
 
-export const TESTIMONIALS = [
-  { text: 'Taylor is absolutely amazing! She really takes the time to understand your skin and customize every treatment. My skin has never looked better. The private suite is so relaxing!', author: 'Facial client' },
-  { text: 'I have been to many estheticians and Taylor is hands down the best. She is knowledgeable, professional, and the results speak for themselves. I am a member for life!', author: 'VIP member' },
-  { text: 'As a guy, I was hesitant about getting a facial. Taylor made me feel completely comfortable and the results were incredible. The CEO Package is my go-to now.', author: 'Men\'s facial client' },
-];
+import { readFileSync } from 'node:fs';
+import { resolve, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+// Real Google reviews pulled by build/fetch-reviews.mjs. Never marked up as Review schema.
+export const REVIEWS = JSON.parse(readFileSync(resolve(dirname(fileURLToPath(import.meta.url)), 'reviews.json'), 'utf8'));
+// Hidden from the site: the web designer's own review.
+export const REVIEW_EXCLUDE = ['Dessiah Daniel'];
 
 export const MEMBERSHIP = {
   perks: ['10% off all services, every visit', 'Priority booking access', 'Member-only offers and events', 'Cancel or pause anytime'],

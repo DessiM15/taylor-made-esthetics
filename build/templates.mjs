@@ -1,22 +1,29 @@
-import { SITE, BLVD, bookUrl, PROMO, GROUPS, CATEGORIES, GUIDES, SERVICES, ADDONS, QUICK_BOOK, EXPERIENCE, TESTIMONIALS, MEMBERSHIP, GALLERY, FAQ } from './data.mjs';
+import { SITE, BLVD, bookUrl, PROMO, GROUPS, CATEGORIES, GUIDES, SERVICES, ADDONS, QUICK_BOOK, EXPERIENCE, REVIEWS, REVIEW_EXCLUDE, MEMBERSHIP, GALLERY, FAQ } from './data.mjs';
 
 export const esc = (s = '') => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const money = (n) => `$${Number(n).toFixed(n % 1 ? 2 : 0)}`;
 const catById = (id) => CATEGORIES.find((c) => c.id === id);
-const inCat = (id) => SERVICES.filter((s) => s.cat === id || (s.altCats || []).includes(id));
+const inCat = (id, { includeAlt = true } = {}) => SERVICES.filter((s) => s.cat === id || (includeAlt && (s.altCats || []).includes(id)));
+const featuredFirst = (list) => [...list].sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+// Six most recent Google reviews that read well in a card: 60 to 330 characters, not from the excluded list.
+const shortName = (n) => { const p = n.trim().split(/\s+/); return p.length > 1 ? `${p[0]} ${p[p.length - 1][0]}.` : p[0]; };
+const cleanReview = (t) => t.replace(/[\u2605\u2B50]+\s*/g, '').replace(/\s+/g, ' ').trim();
+const FEATURED_REVIEWS = REVIEWS
+  .filter((r) => r.rating === 5 && !REVIEW_EXCLUDE.includes(r.name) && r.name !== 'A Google User')
+  .map((r) => ({ ...r, text: cleanReview(r.text) }))
+  .filter((r) => r.text.length >= 60 && r.text.length <= 330)
+  .sort((a, b) => b.date.localeCompare(a.date))
+  .slice(0, 6);
+const REVIEW_COUNT = REVIEWS.filter((r) => !REVIEW_EXCLUDE.includes(r.name)).length;
+const fmtDate = (d) => new Date(d + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
 
 // ---------- icons ----------
 const ICONS = {
-  wax: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 34 32 16l4 4-18 18H14v-4Z"/><path d="M29 19l4 4"/><path d="M10 38h28"/><path d="M36 10c0 3-2 4-2 4s-2-1-2-4 2-4 2-4 2 1 2 4Z"/></svg>',
-  face: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M24 6c-9 0-14 7-14 16 0 10 7 18 14 18s14-8 14-18c0-9-5-16-14-16Z"/><path d="M17 24h2M29 24h2"/><path d="M20 31c2 2 6 2 8 0"/><path d="M10 22c3-2 6-6 7-11M38 22c-3-2-6-6-7-11"/></svg>',
-  clear: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M24 4 28 16h12l-10 7 4 12-10-7-10 7 4-12-10-7h12Z"/><path d="M8 40h32"/></svg>',
-  drop: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M24 5s-13 14-13 24a13 13 0 0 0 26 0C37 19 24 5 24 5Z"/><path d="M17 30a7 7 0 0 0 7 7"/></svg>',
   suite: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 42V18L24 6l16 12v24"/><path d="M18 42V28h12v14"/><path d="M8 42h32"/></svg>',
   plan: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="8" y="8" width="32" height="32" rx="4"/><path d="M16 20h16M16 28h10"/><path d="M14 8V4M34 8V4"/></svg>',
   results: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="24" cy="24" r="18"/><path d="M15 25l6 6 12-13"/></svg>',
   products: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M18 6h12v8H18z"/><path d="M14 14h20v26a2 2 0 0 1-2 2H16a2 2 0 0 1-2-2V14Z"/><path d="M14 24h20"/></svg>',
   star: '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m12 2 2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 17.3 5.8 21l1.6-7L2 9.3l7.1-.7L12 2z"/></svg>',
-  heart: '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.7 4.5c2 0 3.5 1.1 4.3 2.2.8-1.1 2.3-2.2 4.3-2.2 3.7 0 5.8 3.9 4.3 7.3C19.5 16.4 12 21 12 21z"/></svg>',
   close: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg>',
   arrow: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
   phone: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg>',
@@ -29,12 +36,9 @@ const ICONS = {
   pause: '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>',
 };
 export const icon = (n) => ICONS[n] || '';
-
 const stars = (label = 'Five star rating') => `<span class="stars" role="img" aria-label="${esc(label)}">${ICONS.star.repeat(5)}</span>`;
 
 // ---------- booking link ----------
-// A real link (works without JS, opens the booking page) that main.js upgrades
-// into an in-page booking dialog.
 export const bookLink = (path, label, cls = 'btn btn-primary', extra = '') =>
   `<a href="${esc(bookUrl(path))}" class="${cls} js-book" data-book-path="${esc(path)}" target="_blank" rel="noopener" ${extra}>${label}<span class="sr-only"> (opens the online booking page in a new tab)</span></a>`;
 
@@ -42,7 +46,7 @@ export const bookLink = (path, label, cls = 'btn btn-primary', extra = '') =>
 const navLinks = [
   ['/#about', 'About'],
   ['/services', 'Services'],
-  ['/#for-him', 'For Him'],
+  ['/services#for-him', 'For Him'],
   ['/#membership', 'Membership'],
   ['/#reviews', 'Reviews'],
   ['/gallery', 'Gallery'],
@@ -75,7 +79,7 @@ export function head({ title, description, canonical, image = '/assets/taylor-st
   <meta name="twitter:image" content="${esc(SITE.url + image)}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="/assets/marble-pink-gold.jpg">
   <link rel="stylesheet" href="/styles.css">
 ${schema.map((s) => `  <script type="application/ld+json">${JSON.stringify(s)}</script>`).join('\n')}
@@ -84,15 +88,14 @@ ${schema.map((s) => `  <script type="application/ld+json">${JSON.stringify(s)}</
 
 export function header(current = '') {
   const link = ([href, label]) => {
-    const active = current && href.startsWith('/' + current) ? ' aria-current="page"' : '';
+    const active = current && href === '/' + current ? ' aria-current="page"' : '';
     return `<li><a href="${href}"${active}>${label}</a></li>`;
   };
   return `<a class="skip-link" href="#main">Skip to main content</a>
 <header class="site-header" id="site-header">
   <div class="nav-container">
     <a href="/" class="nav-logo" aria-label="${esc(SITE.name)} home">
-      <img src="/assets/tme-logo.png" alt="" width="64" height="65">
-      <span class="nav-wordmark"><span class="nav-wordmark-script">Taylor Made</span><span class="nav-wordmark-caps">Esthetics</span></span>
+      <img src="/assets/tme-logo.png" alt="" width="84" height="86">
     </a>
     <nav class="nav-primary" aria-label="Primary">
       <ul class="nav-links">${navLinks.map(link).join('')}</ul>
@@ -122,14 +125,14 @@ export function footer() {
     <div class="footer-grid">
       <div class="footer-brand">
         <img src="/assets/tme-logo.png" alt="" width="88" height="90" class="footer-logo">
-        <p class="footer-script">Your glow. Your confidence. Your self care.</p>
+        <p class="footer-tag">Your glow. Your confidence. Your self care.</p>
         <p>Licensed esthetician in a private suite at Pearland Town Center. Facials, waxing, sugaring and corrective skincare for women and men.</p>
       </div>
       <nav class="footer-nav" aria-label="Footer">
         <h2 class="footer-heading">Explore</h2>
         <ul>
           <li><a href="/#about">About Taylor</a></li>
-          <li><a href="/services">All services</a></li>
+          <li><a href="/services">Full menu</a></li>
           <li><a href="/#membership">VIP Membership</a></li>
           <li><a href="/gallery">Gallery</a></li>
           <li><a href="/#faq">FAQ</a></li>
@@ -143,7 +146,7 @@ export function footer() {
           <li><a href="/services/brazilian-wax">Brazilian Wax</a></li>
           <li><a href="/services/luxury-facial">Luxury Facial</a></li>
           <li><a href="/services/sugar-brazilian">Sugar Brazilian</a></li>
-          <li><a href="/services#him-facials">Men's facials</a></li>
+          <li><a href="/services#for-him">Men's services</a></li>
         </ul>
       </div>
       <div class="footer-contact">
@@ -215,22 +218,18 @@ function promoPopup() {
 }
 
 // ---------- shared blocks ----------
-export function serviceCard(s, { number } = {}) {
-  const cat = catById(s.cat);
-  const direct = s.blvd.includes('/s_');
-  return `<article class="service-card${s.featured ? ' featured' : ''}">
-  ${s.badge ? `<span class="service-badge">${esc(s.badge)}</span>` : ''}
-  ${number ? `<span class="service-number" aria-hidden="true">${String(number).padStart(2, '0')}</span>` : ''}
-  <h3 class="service-name"><a href="/services/${s.slug}">${esc(s.name)}</a></h3>
-  <p class="service-desc">${esc(s.short)}</p>
-  <div class="service-foot">
-    <span class="service-price">${s.from ? '<span class="service-from">from</span> ' : ''}${money(s.price)}</span>
-    <div class="service-actions">
-      ${bookLink(s.blvd, direct ? 'Book' : 'Book', 'btn btn-primary btn-sm')}
-      <a href="/services/${s.slug}" class="service-more">Details<span class="sr-only"> about ${esc(s.name)}</span></a>
-    </div>
+// A menu row: name, one line, price, Book. `h` is the heading level for the name.
+export function menuRow(s, h = 'h3') {
+  return `<li class="menu-row${s.featured ? ' featured' : ''}">
+  <div class="menu-row-main">
+    <${h} class="menu-row-name"><a href="/services/${s.slug}">${esc(s.name)}</a>${s.badge ? ` <span class="menu-badge">${esc(s.badge)}</span>` : ''}</${h}>
+    <p class="menu-row-desc">${esc(s.short)}</p>
   </div>
-</article>`;
+  <div class="menu-row-side">
+    <span class="menu-row-price">${s.from ? '<span class="service-from">from</span> ' : ''}${money(s.price)}</span>
+    ${bookLink(s.blvd, 'Book', 'menu-row-book')}
+  </div>
+</li>`;
 }
 
 export function sectionHeader({ label, title, subtitle, as = 'h2', id }) {
@@ -251,6 +250,12 @@ export function faqBlock(items, { title = 'Questions, answered', id = 'faq' } = 
   </div>
 </section>`;
 }
+
+const marquee = () => `<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    ${Array(2).fill(['Facials', 'HydraFacial', 'Brazilian Wax', 'Sugaring', 'Brows & Lashes', "Men's Grooming", 'Pearland, TX'].map((w) => `<span>${w}</span><span class="marquee-dot"></span>`).join('')).join('')}
+  </div>
+</div>`;
 
 export const faqSchema = (items) => ({
   '@context': 'https://schema.org',
@@ -282,32 +287,21 @@ export const businessSchema = () => ({
 });
 
 // ---------- HOME ----------
+const HOME_TABS = [
+  { id: 'her-facials', label: 'Facials' },
+  { id: 'waxing', label: 'Waxing' },
+  { id: 'sugar', label: 'Sugaring' },
+  { id: 'packages', label: 'Spa Packages' },
+  { id: 'brows-lashes', label: 'Brows & Lashes' },
+  { id: 'men', label: "Men's", slugs: ['executive-facial', 'acne-defense-facial', 'mens-hydrafacial', 'beard-line-cleanup', 'manzilian', 'the-ceo-package'], href: '/services#for-him' },
+];
+
 export function homePage() {
   const a = SITE.address;
-  const groupBlock = (g) => {
-    const cats = CATEGORIES.filter((c) => c.group === g.id);
-    const anchor = g.id === 'him' ? 'for-him' : 'for-her';
-    return `<section class="section services-group" id="${anchor}" aria-labelledby="${anchor}-title">
-  <div class="container">
-    ${sectionHeader({ label: 'Services', title: g.title, subtitle: g.subtitle, id: `${anchor}-title` })}
-    <div class="tabs" data-tabs>
-      <div class="tab-list" role="tablist" aria-label="${esc(g.label)} service categories">
-        ${cats.map((c, i) => `<button class="tab" role="tab" type="button" id="tab-${c.id}" aria-controls="panel-${c.id}" aria-selected="${i === 0}" tabindex="${i === 0 ? 0 : -1}">${esc(c.label)}</button>`).join('\n        ')}
-      </div>
-      ${cats.map((c, i) => `<div class="tab-panel" role="tabpanel" id="panel-${c.id}" aria-labelledby="tab-${c.id}"${i === 0 ? '' : ' hidden'}>
-        <p class="tab-blurb">${esc(c.blurb)} <a href="/services#${c.id}">See all ${esc(c.plural.toLowerCase())}</a></p>
-        <div class="services-grid">
-          ${inCat(c.id).slice(0, 6).map((s, n) => serviceCard(s, { number: n + 1 })).join('\n')}
-        </div>
-        ${inCat(c.id).length > 6 ? `<p class="tab-more"><a href="/services#${c.id}" class="btn btn-outline">All ${inCat(c.id).length} ${esc(c.plural.toLowerCase())}</a></p>` : ''}
-      </div>`).join('\n')}
-    </div>
-    <p class="addons-note">${esc(ADDONS[g.id])}</p>
-  </div>
-</section>`;
-  };
-
   const hoursRows = SITE.hours.map((h) => `<tr><th scope="row">${esc(h.days)}</th><td>${h.opens ? `${h.open} to ${h.close}` : 'Closed'}</td></tr>`).join('');
+  const tabItems = (t) => t.slugs ? t.slugs.map((slug) => SERVICES.find((s) => s.slug === slug)) : featuredFirst(inCat(t.id)).slice(0, 6);
+  const tabHref = (t) => t.href || `/services#${t.id}`;
+  const tabCount = (t) => t.slugs ? SERVICES.filter((s) => s.cat.startsWith('him')).length : inCat(t.id).length;
 
   return `${head({
     title: 'Pearland Skincare and Body Waxing | Taylor Made Esthetics',
@@ -319,7 +313,7 @@ export function homePage() {
 ${header('')}
 <main id="main" tabindex="-1">
 
-  <section class="hero hero-bleed" aria-labelledby="hero-title">
+  <section class="hero hero-bleed hero-full" aria-labelledby="hero-title">
     <div class="hero-bg" aria-hidden="true">
       <video class="hero-video" muted loop playsinline preload="metadata" poster="/assets/hero-facial-poster.jpg" data-autoplay>
         <source src="/assets/hero-facial.mp4" type="video/mp4">
@@ -328,27 +322,29 @@ ${header('')}
     </div>
     <div class="container hero-inner">
       <div class="hero-content">
-        <p class="hero-script">Welcome to Taylor Made Esthetics</p>
+        <p class="kicker">Licensed esthetician &middot; Private suite</p>
         <h1 class="hero-title" id="hero-title">Pearland Skincare and Body Waxing</h1>
         <p class="hero-location">${esc(a.landmark)}, ${esc(a.city)}, ${esc(a.region)}</p>
-        <p class="hero-desc">Luxury facials, HydraFacial, Brazilian waxing and sugaring in a private suite, tailored to your skin by a licensed esthetician. Where healthy skin meets confidence.</p>
+        <p class="hero-desc">Luxury facials, HydraFacial, Brazilian waxing and sugaring in a private suite, tailored to your skin. Where healthy skin meets confidence.</p>
         <div class="hero-ctas">
           ${bookLink(BLVD.menu, 'Book an Appointment', 'btn btn-primary btn-lg')}
           <a href="#quick-book" class="btn btn-outline btn-lg">Explore Services</a>
         </div>
         <ul class="hero-trust" aria-label="Highlights">
-          <li>${stars('Rated five stars on Google')}<span>5-star rated on Google</span></li>
-          <li><span class="trust-dot" aria-hidden="true"></span><span>Licensed esthetician</span></li>
-          <li><span class="trust-dot" aria-hidden="true"></span><span>Private treatment suite</span></li>
+          <li>${stars('Rated five stars on Google')}<span>5.0 on Google, ${REVIEW_COUNT} reviews</span></li>
+          <li><span class="trust-dot" aria-hidden="true"></span><span>Women and men welcome</span></li>
+          <li><span class="trust-dot" aria-hidden="true"></span><span>Book online in seconds</span></li>
         </ul>
       </div>
     </div>
-    <button type="button" class="video-toggle hero-toggle" data-video-toggle data-video-target="hero" aria-label="Pause background video" aria-pressed="false">${ICONS.pause}${ICONS.play}</button>
+    <button type="button" class="video-toggle hero-toggle" data-video-toggle aria-label="Pause background video" aria-pressed="false">${ICONS.pause}${ICONS.play}</button>
   </section>
+
+  ${marquee()}
 
   <section class="quick-book" id="quick-book" aria-labelledby="quick-book-title">
     <div class="container">
-      <h2 class="quick-book-title" id="quick-book-title"><span class="script">Book in seconds</span> Choose where to start</h2>
+      <h2 class="quick-book-title" id="quick-book-title"><span class="script">Book in seconds</span><span class="quick-book-sub-title">Choose where to start</span></h2>
     </div>
     <ul class="quick-book-grid">
       ${QUICK_BOOK.map((q) => `<li class="quick-book-item">
@@ -361,12 +357,6 @@ ${header('')}
       </li>`).join('\n')}
     </ul>
   </section>
-
-  <div class="marquee" aria-hidden="true">
-    <div class="marquee-track">
-      ${Array(2).fill(['Facials', 'HydraFacial', 'Brazilian Wax', 'Sugaring', 'Brows & Lashes', 'Men\'s Grooming', 'Pearland, TX'].map((w) => `<span>${w}</span><span class="marquee-heart">${ICONS.heart}</span>`).join('')).join('')}
-    </div>
-  </div>
 
   <section class="section about" id="about" aria-labelledby="about-title">
     <div class="container about-grid">
@@ -396,7 +386,23 @@ ${header('')}
     </div>
   </section>
 
-  ${GROUPS.map(groupBlock).join('\n')}
+  <section class="section services-home" id="services" aria-labelledby="services-title">
+    <div class="container">
+      ${sectionHeader({ label: 'The menu', title: 'Services <em>&amp; Pricing</em>', subtitle: 'Every service books directly online. Pick a category, tap Book, choose a time.', id: 'services-title' })}
+      <div class="tabs" data-tabs>
+        <div class="tab-list" role="tablist" aria-label="Service categories">
+          ${HOME_TABS.map((t, i) => `<button class="tab" role="tab" type="button" id="tab-${t.id}" aria-controls="panel-${t.id}" aria-selected="${i === 0}" tabindex="${i === 0 ? 0 : -1}">${esc(t.label)}</button>`).join('\n          ')}
+        </div>
+        ${HOME_TABS.map((t, i) => `<div class="tab-panel menu-panel panel" role="tabpanel" id="panel-${t.id}" aria-labelledby="tab-${t.id}"${i === 0 ? '' : ' hidden'}>
+          <ul class="menu-list">
+            ${tabItems(t).map((s) => menuRow(s, 'h3')).join('\n')}
+          </ul>
+          <p class="menu-more"><a href="${tabHref(t)}" class="btn btn-outline btn-sm">Full ${esc(t.label.toLowerCase())} menu (${tabCount(t)})</a></p>
+        </div>`).join('\n')}
+      </div>
+      <p class="addons-note">${esc(ADDONS.her)}</p>
+    </div>
+  </section>
 
   <section class="section experience" id="experience" aria-labelledby="experience-title">
     <div class="container">
@@ -431,33 +437,17 @@ ${header('')}
 
   <section class="section reviews" id="reviews" aria-labelledby="reviews-title">
     <div class="container">
-      ${sectionHeader({ label: 'Reviews', title: 'Rated 5 Stars on <em>Google</em>', subtitle: 'Real words from the people who sit in the chair.', id: 'reviews-title' })}
-      <div class="reviews-grid">
-        <div class="google-card panel">
-          ${stars('Five out of five stars')}
-          <p class="google-score"><strong>5.0</strong> on Google</p>
-          <p class="google-note">Clients mention the private suite, the skin analysis and results they can see.</p>
-          <a class="btn btn-outline" href="${esc(SITE.googleMaps)}" target="_blank" rel="noopener">Read reviews on Google<span class="sr-only"> (opens in a new tab)</span></a>
-          <a class="reviews-leave" href="${esc(SITE.googleMaps)}" target="_blank" rel="noopener">Leave a review<span class="sr-only"> (opens in a new tab)</span></a>
-        </div>
-        <div class="testimonials panel" data-testimonials>
-          <div class="testimonial-track" aria-live="polite">
-            ${TESTIMONIALS.map((t, i) => `<figure class="testimonial${i === 0 ? ' is-active' : ''}"${i === 0 ? '' : ' hidden'}>
-              ${stars('Five star review')}
-              <blockquote><p>${esc(t.text)}</p></blockquote>
-              <figcaption>${esc(t.author)}</figcaption>
-            </figure>`).join('\n')}
-          </div>
-          <div class="testimonial-controls">
-            <button type="button" class="t-btn" data-t-prev aria-label="Previous review">&larr;</button>
-            <span class="t-count"><span data-t-index>1</span> / ${TESTIMONIALS.length}</span>
-            <button type="button" class="t-btn" data-t-next aria-label="Next review">&rarr;</button>
-          </div>
-        </div>
-      </div>
-      <div class="reviews-widget">
-        <script src="https://elfsightcdn.com/platform.js" async></script>
-        <div class="elfsight-app-${SITE.elfsightApp}" data-elfsight-app-lazy></div>
+      ${sectionHeader({ label: 'Reviews', title: 'Rated 5 Stars on <em>Google</em>', subtitle: `${REVIEW_COUNT} five-star reviews from the people who sit in the chair.`, id: 'reviews-title' })}
+      <ul class="review-grid">
+        ${FEATURED_REVIEWS.map((r) => `<li class="review-card panel">
+          ${stars('Five star review')}
+          <blockquote class="review-text"><p>${esc(r.text)}</p></blockquote>
+          <p class="review-meta"><span class="review-name">${esc(shortName(r.name))}</span><span class="review-date">Google review, ${fmtDate(r.date)}</span></p>
+        </li>`).join('\n')}
+      </ul>
+      <div class="reviews-actions">
+        <a class="btn btn-outline" href="${esc(SITE.googleMaps)}" target="_blank" rel="noopener">Read all ${REVIEW_COUNT} on Google<span class="sr-only"> (opens in a new tab)</span></a>
+        <a class="btn btn-primary" href="${esc(SITE.googleReview)}" target="_blank" rel="noopener">Leave a review<span class="sr-only"> (opens in a new tab)</span></a>
       </div>
     </div>
   </section>
@@ -486,11 +476,14 @@ ${header('')}
 ${footer()}`;
 }
 
-// ---------- SERVICES INDEX ----------
+// ---------- SERVICES INDEX (the menu) ----------
 export function servicesIndexPage() {
+  const groupAnchor = (g) => (g.id === 'him' ? 'for-him' : 'for-her');
+  // Men's grooming lists only men-specific items; shared waxing lives in the waxing list above.
+  const listFor = (c) => c.id === 'him-grooming' ? inCat(c.id, { includeAlt: false }) : inCat(c.id);
   return `${head({
-    title: 'Facials, Waxing & Skincare Services in Pearland, TX | Taylor Made Esthetics',
-    description: 'Every service at Taylor Made Esthetics with prices: facials, HydraFacial, Brazilian and body waxing, sugaring, brows and lashes, spa packages and men\'s grooming in Pearland, TX. Book any service online.',
+    title: 'Service Menu & Prices in Pearland, TX | Taylor Made Esthetics',
+    description: 'Full menu with prices: facials, HydraFacial, Brazilian and body waxing, sugaring, brows and lashes, spa packages and men\'s grooming at Taylor Made Esthetics in Pearland, TX. Book any service online.',
     canonical: '/services',
     schema: [{ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: SITE.url + '/' }, { '@type': 'ListItem', position: 2, name: 'Services', item: SITE.url + '/services' }] }],
   })}
@@ -499,27 +492,31 @@ ${header('services')}
 <main id="main" tabindex="-1">
   <section class="page-hero" aria-labelledby="page-title">
     <div class="container">
-      <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li aria-current="page">Services</li></ol></nav>
-      <p class="hero-script">Our menu</p>
-      <h1 class="page-title" id="page-title">Skincare and Waxing Services in Pearland, TX</h1>
-      <p class="page-lead">Every service is listed with its price and books directly online. Not sure where to start? <a href="/#contact">Call or text Taylor</a> and she will point you to the right one.</p>
-      <nav class="jump-nav" aria-label="Service categories">
-        ${GROUPS.map((g) => `<div class="jump-group"><span class="jump-label">${esc(g.label)}</span>${CATEGORIES.filter((c) => c.group === g.id).map((c) => `<a href="#${c.id}">${esc(c.label)}</a>`).join('')}</div>`).join('')}
-      </nav>
+      <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li aria-current="page">Menu</li></ol></nav>
+      <p class="kicker">The menu</p>
+      <h1 class="page-title" id="page-title">Services &amp; Pricing</h1>
+      <p class="page-lead">Every service books directly online. Not sure where to start? <a href="/#contact">Call or text Taylor</a> and she will point you to the right one.</p>
     </div>
   </section>
-  ${GROUPS.map((g) => `<section class="section services-group-all" aria-labelledby="g-${g.id}">
+  <nav class="jump-nav" aria-label="Menu categories">
+    <div class="container jump-inner">
+      ${GROUPS.map((g) => `<div class="jump-group"><span class="jump-label">${esc(g.label)}</span>${CATEGORIES.filter((c) => c.group === g.id).map((c) => `<a href="#${c.id}">${esc(c.label)}</a>`).join('')}</div>`).join('')}
+    </div>
+  </nav>
+  ${GROUPS.map((g) => `<section class="section menu-group" id="${groupAnchor(g)}" aria-labelledby="g-${g.id}">
     <div class="container">
-      <h2 class="section-title" id="g-${g.id}">${g.title}</h2>
-      ${CATEGORIES.filter((c) => c.group === g.id).map((c) => `<div class="cat-block" id="${c.id}">
-        <div class="cat-head">
-          <h3 class="cat-title">${esc(c.plural)}</h3>
-          <p class="cat-blurb">${esc(c.blurb)}</p>
+      <h2 class="section-title menu-group-title" id="g-${g.id}">${g.title}</h2>
+      ${CATEGORIES.filter((c) => c.group === g.id).map((c) => `<div class="menu-cat" id="${c.id}">
+        <div class="menu-cat-head">
+          <div>
+            <h3 class="menu-cat-title">${esc(c.plural)}</h3>
+            <p class="menu-cat-blurb">${esc(c.blurb)}${c.id === 'him-grooming' ? ' Every body wax in the <a href="#waxing">waxing list</a> is available to men at the same price.' : ''}</p>
+          </div>
           ${bookLink(c.blvd, `Book ${esc(c.label.toLowerCase())}`, 'btn btn-outline btn-sm')}
         </div>
-        <div class="services-grid">
-          ${inCat(c.id).map((s, n) => serviceCard(s, { number: n + 1 })).join('\n')}
-        </div>
+        <ul class="menu-list menu-list-page" data-collapse="8" data-label="${esc(c.plural.toLowerCase())}">
+          ${listFor(c).map((s) => menuRow(s, 'h4')).join('\n')}
+        </ul>
       </div>`).join('\n')}
       <p class="addons-note">${esc(ADDONS[g.id])}</p>
     </div>
@@ -529,11 +526,11 @@ ${header('services')}
 ${footer()}`;
 }
 
-function ctaBand(title = 'Ready when you are', text = 'Pick a time that works, confirm in a few taps, and walk into a private suite that is ready for you.') {
+function ctaBand(kicker = 'Ready when you are', text = 'Pick a time that works, confirm in a few taps, and walk into a private suite that is ready for you.') {
   return `<section class="section cta-band" aria-labelledby="cta-title">
   <div class="container">
     <div class="cta-panel gold-frame">
-      <p class="hero-script">${esc(title)}</p>
+      <p class="kicker">${esc(kicker)}</p>
       <h2 class="section-title" id="cta-title">Book your appointment <em>online</em></h2>
       <p>${esc(text)}</p>
       <div class="hero-ctas">
@@ -580,31 +577,20 @@ export function servicePage(s) {
 ${header('services')}
 <main id="main" tabindex="-1">
   <section class="page-hero service-hero" aria-labelledby="page-title">
-    <div class="container service-hero-grid">
-      <div>
-        <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/services">Services</a></li><li><a href="/services#${cat.id}">${esc(cat.plural)}</a></li><li aria-current="page">${esc(s.name)}</li></ol></nav>
-        <p class="hero-script">${esc(group.label)} &middot; ${esc(cat.label)}</p>
-        <h1 class="page-title" id="page-title">${esc(s.name)} in Pearland, TX</h1>
-        <p class="page-lead">${esc(s.short)}</p>
-        <div class="service-hero-meta">
-          <span class="service-price-lg">${s.from ? '<span class="service-from">from</span> ' : ''}${money(s.price)}</span>
-          <span class="service-location">${ICONS.pin}Pearland Town Center</span>
-        </div>
-        <div class="hero-ctas">
-          ${bookLink(s.blvd, direct ? `Book ${esc(s.name)}` : `Book ${esc(cat.label.toLowerCase())}`, 'btn btn-primary btn-lg')}
-          <a href="${SITE.phoneHref}" class="btn btn-outline btn-lg">Call to book</a>
-        </div>
-        ${direct ? '' : `<p class="service-note">Choose this from the ${esc(cat.label.toLowerCase())} menu when you book, or call and Taylor will set it up for you.</p>`}
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/services">Menu</a></li><li><a href="/services#${cat.id}">${esc(cat.plural)}</a></li><li aria-current="page">${esc(s.name)}</li></ol></nav>
+      <p class="kicker">${esc(group.label)} &middot; ${esc(cat.label)}</p>
+      <h1 class="page-title" id="page-title">${esc(s.name)} in Pearland, TX</h1>
+      <p class="page-lead">${esc(s.short)}</p>
+      <div class="service-hero-meta">
+        <span class="service-price-lg">${s.from ? '<span class="service-from">from</span> ' : ''}${money(s.price)}</span>
+        <span class="service-location">${ICONS.pin}Pearland Town Center</span>
       </div>
-      <aside class="service-side panel" aria-label="Quick facts">
-        <h2 class="side-title">Good to know</h2>
-        <dl class="facts">
-          <div><dt>Price</dt><dd>${money(s.price)}</dd></div>
-          <div><dt>Category</dt><dd><a href="/services#${cat.id}">${esc(cat.plural)}</a></dd></div>
-          <div><dt>Where</dt><dd>Private suite, ${esc(SITE.address.landmark)}</dd></div>
-          <div><dt>Best for</dt><dd>${esc(s.bestFor)}</dd></div>
-        </dl>
-      </aside>
+      <div class="hero-ctas">
+        ${bookLink(s.blvd, direct ? `Book ${esc(s.name)}` : `Book ${esc(cat.label.toLowerCase())}`, 'btn btn-primary btn-lg')}
+        <a href="${SITE.phoneHref}" class="btn btn-outline btn-lg">Call to book</a>
+      </div>
+      ${direct ? '' : `<p class="service-note">Choose this from the ${esc(cat.label.toLowerCase())} menu when you book, or call and Taylor will set it up for you.</p>`}
     </div>
   </section>
 
@@ -622,10 +608,19 @@ ${header('services')}
         ${guide.faq.map((f) => `<h2>${esc(f.q)}</h2><p>${esc(f.a)}</p>`).join('\n')}
         <div class="service-inline-cta">
           ${bookLink(s.blvd, 'Book this service', 'btn btn-primary')}
-          <a href="/services" class="btn btn-outline">All services</a>
+          <a href="/services" class="btn btn-outline">Full menu</a>
         </div>
       </div>
-      <aside class="service-related" aria-labelledby="related-title">
+      <aside class="service-side-col">
+        <div class="service-side panel" aria-label="Quick facts">
+          <h2 class="side-title">Good to know</h2>
+          <dl class="facts">
+            <div><dt>Price</dt><dd>${money(s.price)}</dd></div>
+            <div><dt>Category</dt><dd><a href="/services#${cat.id}">${esc(cat.plural)}</a></dd></div>
+            <div><dt>Where</dt><dd>Private suite, ${esc(SITE.address.landmark)}</dd></div>
+            <div><dt>Best for</dt><dd>${esc(s.bestFor)}</dd></div>
+          </dl>
+        </div>
         <h2 id="related-title" class="related-title">More ${esc(cat.plural.toLowerCase())}</h2>
         <div class="related-list">
           ${related.map((r) => `<a class="related-card panel" href="/services/${r.slug}"><span class="related-name">${esc(r.name)}</span><span class="related-price">${money(r.price)}</span></a>`).join('\n')}
@@ -656,7 +651,7 @@ ${header('gallery')}
   <section class="page-hero" aria-labelledby="page-title">
     <div class="container">
       <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li aria-current="page">Gallery</li></ol></nav>
-      <p class="hero-script">Inside the suite</p>
+      <p class="kicker">Inside the suite</p>
       <h1 class="page-title" id="page-title">The Gallery</h1>
       <p class="page-lead">Treatments in progress, happy clients and the private room where it all happens.</p>
     </div>
@@ -734,9 +729,9 @@ export function notFoundPage() {
 ${header('')}
 <main id="main" tabindex="-1">
   <section class="page-hero"><div class="container narrow">
-    <p class="hero-script">Oops</p>
+    <p class="kicker">Oops</p>
     <h1 class="page-title">We couldn't find that page</h1>
-    <p class="page-lead">The link may be old or mistyped. Try the <a href="/services">services menu</a> or head back <a href="/">home</a>.</p>
+    <p class="page-lead">The link may be old or mistyped. Try the <a href="/services">menu</a> or head back <a href="/">home</a>.</p>
     <div class="hero-ctas">${bookLink(BLVD.menu, 'Book an Appointment', 'btn btn-primary btn-lg')}</div>
   </div></section>
 </main>

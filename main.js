@@ -224,6 +224,28 @@
     });
   }
 
+  // ---------- collapse long menu lists ----------
+  Array.prototype.forEach.call(document.querySelectorAll('[data-collapse]'), function (list) {
+    var limit = parseInt(list.getAttribute('data-collapse'), 10) || 8;
+    var rows = Array.prototype.slice.call(list.querySelectorAll('.menu-row'));
+    if (rows.length <= limit + 2) return;
+    rows.slice(limit).forEach(function (r) { r.classList.add('is-extra'); });
+    list.classList.add('is-collapsed');
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'btn btn-outline btn-sm menu-expand';
+    btn.setAttribute('aria-expanded', 'false');
+    var label = list.getAttribute('data-label') || 'services';
+    btn.textContent = 'Show all ' + rows.length + ' ' + label;
+    list.insertAdjacentElement('afterend', btn);
+    btn.addEventListener('click', function () {
+      var open = list.classList.toggle('is-collapsed') === false;
+      btn.setAttribute('aria-expanded', String(open));
+      btn.textContent = open ? 'Show fewer ' + label : 'Show all ' + rows.length + ' ' + label;
+      if (!open) list.scrollIntoView({ block: 'start' });
+    });
+  });
+
   // ---------- open tab from a hash like /services#waxing on the home page ----------
   function openTabForHash() {
     var id = location.hash.replace('#', '');
