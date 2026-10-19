@@ -344,7 +344,7 @@ ${header('')}
 
   <section class="quick-book" id="quick-book" aria-labelledby="quick-book-title">
     <div class="container">
-      <h2 class="quick-book-title" id="quick-book-title"><span class="script">Book in seconds</span><span class="quick-book-sub-title">Choose where to start</span></h2>
+      <h2 class="quick-book-title" id="quick-book-title"><span class="script">Pearland Skin and Waxing Services</span><span class="quick-book-sub-title">Choose where to start</span></h2>
     </div>
     <ul class="quick-book-grid">
       ${QUICK_BOOK.map((q) => `<li class="quick-book-item">
@@ -482,7 +482,7 @@ export function servicesIndexPage() {
   // Men's grooming lists only men-specific items; shared waxing lives in the waxing list above.
   const listFor = (c) => c.id === 'him-grooming' ? inCat(c.id, { includeAlt: false }) : inCat(c.id);
   return `${head({
-    title: 'Service Menu & Prices in Pearland, TX | Taylor Made Esthetics',
+    title: 'Pearland Skincare and Waxing Services, Menu & Prices | Taylor Made Esthetics',
     description: 'Full menu with prices: facials, HydraFacial, Brazilian and body waxing, sugaring, brows and lashes, spa packages and men\'s grooming at Taylor Made Esthetics in Pearland, TX. Book any service online.',
     canonical: '/services',
     schema: [{ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: SITE.url + '/' }, { '@type': 'ListItem', position: 2, name: 'Services', item: SITE.url + '/services' }] }],
@@ -494,7 +494,7 @@ ${header('services')}
     <div class="container">
       <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li aria-current="page">Menu</li></ol></nav>
       <p class="kicker">The menu</p>
-      <h1 class="page-title" id="page-title">Services &amp; Pricing</h1>
+      <h1 class="page-title" id="page-title">Pearland Skincare and Waxing Services</h1>
       <p class="page-lead">Every service books directly online. Not sure where to start? <a href="/#contact">Call or text Taylor</a> and she will point you to the right one.</p>
     </div>
   </section>
@@ -641,7 +641,7 @@ ${footer()}`;
 // ---------- GALLERY ----------
 export function galleryPage() {
   return `${head({
-    title: 'Gallery | Taylor Made Esthetics, Pearland TX',
+    title: 'Gallery: Inside Our Pearland Skincare Suite | Taylor Made Esthetics',
     description: 'A look inside the Taylor Made Esthetics suite in Pearland Town Center: facials in progress, client results and the private treatment room.',
     canonical: '/gallery',
   })}
@@ -652,7 +652,7 @@ ${header('gallery')}
     <div class="container">
       <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li aria-current="page">Gallery</li></ol></nav>
       <p class="kicker">Inside the suite</p>
-      <h1 class="page-title" id="page-title">The Gallery</h1>
+      <h1 class="page-title" id="page-title">Inside Our Pearland Skincare Suite</h1>
       <p class="page-lead">Treatments in progress, happy clients and the private room where it all happens.</p>
     </div>
   </section>
@@ -680,7 +680,7 @@ ${footer()}`;
 // ---------- ACCESSIBILITY STATEMENT ----------
 export function accessibilityPage() {
   return `${head({
-    title: 'Accessibility Statement | Taylor Made Esthetics',
+    title: 'Accessibility Statement | Taylor Made Esthetics, Pearland TX',
     description: 'Taylor Made Esthetics is committed to a website that everyone can use. Read what we do to meet WCAG 2.2 AA and how to reach us if something is in your way.',
     canonical: '/accessibility',
   })}
@@ -690,7 +690,7 @@ ${header('accessibility')}
   <section class="page-hero" aria-labelledby="page-title">
     <div class="container narrow">
       <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li aria-current="page">Accessibility</li></ol></nav>
-      <h1 class="page-title" id="page-title">Accessibility Statement</h1>
+      <h1 class="page-title" id="page-title">Accessibility at Taylor Made Esthetics, Pearland TX</h1>
       <p class="page-lead">We want every client to be able to learn about our services and book an appointment, whatever device or assistive technology they use.</p>
     </div>
   </section>
