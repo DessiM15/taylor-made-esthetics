@@ -54,15 +54,15 @@ export const bookUrl = (path = BLVD.menu) =>
 // booking path when the next deal comes in.
 export const PROMO = {
   enabled: true,
-  id: 'hydrafacial-groupon-2026-10', // change this id to show the popup again to people who closed the old one
-  eyebrow: 'Limited time',
-  title: 'HydraFacial Treatments',
-  highlight: 'Up to 70% off',
-  body: 'Visibly clearer, smoother, radiant skin. One session $79, two sessions $139, three sessions $179 on Groupon, and even less with code RELAX while it lasts.',
-  fine: 'Groupon pricing and availability can change. Confirm on Groupon before you buy.',
-  image: 'assets/promo-hydrafacial.jpg',
-  imageAlt: 'Taylor Made Esthetics flyer: HydraFacial treatments up to 70 percent off on Groupon. One session $79, two sessions $139, three sessions $179, with extra savings using code RELAX.',
-  cta: { label: 'Book a HydraFacial', path: '/cart/menu/Skincare/s_92da8177-f385-485a-beff-4a1cbc606830' },
+  id: 'spooky-good-deal-2026-10', // change this id to show the popup again to people who closed the old one
+  eyebrow: 'Spooky season',
+  title: 'Spooky Good Deal',
+  highlight: '50% off all services',
+  body: 'Facials, body waxing, sugar waxing, skin care treatments and more, all half off for a limited time. Beautiful skin is always in season.',
+  fine: 'Limited time. Discount applied at your appointment.',
+  image: 'assets/promo-spooky.jpg',
+  imageAlt: 'Taylor Made Esthetics Halloween flyer: Spooky Good Deal, 50 percent off all services including facials, body waxing, sugar waxing and skin care treatments. A pink ghost holds a Glow Season cup beside pink pumpkins and candles.',
+  cta: { label: 'Book now and save 50%', path: BLVD.menu },
 };
 
 export const GROUPS = [

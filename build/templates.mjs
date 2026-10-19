@@ -200,7 +200,7 @@ function promoPopup() {
   <div class="promo-backdrop" data-promo-close></div>
   <div class="promo-dialog gold-frame" role="dialog" aria-modal="true" aria-labelledby="promo-title" aria-describedby="promo-body">
     <button type="button" class="promo-close" data-promo-close aria-label="Close offer">${ICONS.close}</button>
-    <div class="promo-media"><img src="/${esc(PROMO.image)}" alt="${esc(PROMO.imageAlt)}" width="880" height="1138" loading="lazy"></div>
+    <div class="promo-media"><img src="/${esc(PROMO.image)}" alt="${esc(PROMO.imageAlt)}" width="675" height="1200" loading="lazy"></div>
     <div class="promo-content">
       <p class="eyebrow">${esc(PROMO.eyebrow)}</p>
       <h2 id="promo-title" class="promo-title">${esc(PROMO.title)}</h2>
