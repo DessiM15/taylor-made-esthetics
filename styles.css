@@ -23,7 +23,7 @@
   --panel-strong: rgba(255, 255, 255, 0.94);
   --font-heading: 'Cormorant Garamond', 'Georgia', serif;
   --font-body: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
-  --font-script: 'Great Vibes', 'Brush Script MT', cursive;
+  --font-script: 'Cormorant Garamond', 'Georgia', serif;
   --radius: 18px;
   --radius-sm: 12px;
   --shadow: 0 18px 50px rgba(154, 60, 100, 0.14);
@@ -81,7 +81,7 @@ h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 500; line-height
   font-size: 12px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
   color: var(--pink-deep); margin-bottom: 14px;
 }
-.script, .hero-script { font-family: var(--font-script); font-weight: 400; color: var(--pink-deep); font-size: clamp(26px, 3.4vw, 40px); line-height: 1.1; }
+.script, .hero-script { font-family: var(--font-script); font-style: italic; font-weight: 500; color: var(--pink-deep); font-size: clamp(22px, 2.4vw, 30px); line-height: 1.2; letter-spacing: 0.3px; }
 .hero-script { display: block; margin-bottom: 8px; }
 .section-title { font-size: clamp(36px, 5vw, 60px); margin-bottom: 16px; }
 .section-title em { font-style: italic; font-weight: 500; color: var(--pink-deep); }
@@ -147,7 +147,7 @@ h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 500; line-height
 .nav-logo img { width: 64px; height: auto; filter: drop-shadow(0 4px 10px rgba(194, 24, 111, 0.18)); transition: width 0.3s; }
 .site-header.scrolled .nav-logo img { width: 52px; }
 .nav-wordmark { display: flex; flex-direction: column; line-height: 1; }
-.nav-wordmark-script { font-family: var(--font-script); font-size: 28px; color: var(--pink-deep); }
+.nav-wordmark-script { font-family: var(--font-heading); font-style: italic; font-weight: 500; font-size: 24px; color: var(--pink-deep); letter-spacing: 0.3px; }
 .nav-wordmark-caps { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; font-weight: 700; color: var(--ink); margin-top: 2px; }
 .nav-links { display: flex; gap: 26px; }
 .nav-links a { font-size: 12px; font-weight: 600; letter-spacing: 1.8px; text-transform: uppercase; color: var(--ink); text-decoration: none; padding: 6px 0; position: relative; }
@@ -203,7 +203,7 @@ h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 500; line-height
 /* ---------- quick book (full bleed photo strip) ---------- */
 .quick-book { padding: 8px 0 0; border-bottom: 1px solid rgba(201, 162, 74, 0.6); }
 .quick-book-title { text-align: center; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; font-family: var(--font-body); font-weight: 700; color: var(--ink); margin: 0 0 26px; display: flex; flex-direction: column; gap: 4px; align-items: center; }
-.quick-book-title .script { text-transform: none; letter-spacing: 0; font-size: 42px; }
+.quick-book-title .script { text-transform: none; letter-spacing: 0; font-size: 34px; }
 .quick-book-grid { display: grid; grid-template-columns: repeat(4, 1fr); width: 100%; border-top: 1px solid rgba(201, 162, 74, 0.6); }
 .quick-book-item { position: relative; overflow: hidden; aspect-ratio: 3 / 4; max-height: 520px; background: var(--ink); isolation: isolate; }
 .quick-book-item + .quick-book-item { border-left: 1px solid rgba(255, 255, 255, 0.35); }
@@ -238,7 +238,7 @@ h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 500; line-height
 .about-thumbs { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 .about-thumbs img { border-radius: var(--radius-sm); aspect-ratio: 4 / 5; object-fit: cover; border: 2px solid #fff; box-shadow: var(--shadow-sm); }
 .about-content { padding: 44px 46px; }
-.about-lead { font-family: var(--font-script); font-size: 34px; color: var(--pink-deep); line-height: 1.1; margin-bottom: 12px; }
+.about-lead { font-family: var(--font-heading); font-style: italic; font-weight: 500; font-size: 26px; color: var(--pink-deep); line-height: 1.2; margin-bottom: 12px; }
 .about-content p { color: var(--ink-soft); margin-bottom: 12px; }
 .about-sub { font-size: 24px; margin: 18px 0 6px; color: var(--ink); }
 .about-ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 22px; }
@@ -264,7 +264,7 @@ h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 500; line-height
 .service-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
 .service-card.featured { border: 2.5px solid transparent; background: linear-gradient(var(--panel-strong), var(--panel-strong)) padding-box, var(--gold-grad) border-box; }
 .service-badge { position: absolute; top: 14px; right: 14px; font-size: 9.5px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; background: var(--gold-grad); color: var(--ink); padding: 5px 12px; border-radius: 999px; }
-.service-number { font-family: var(--font-script); font-size: 34px; color: var(--gold-number); line-height: 1; margin-bottom: 6px; }
+.service-number { font-family: var(--font-heading); font-style: italic; font-size: 22px; color: var(--gold-number); line-height: 1; margin-bottom: 10px; letter-spacing: 1px; }
 .service-name { font-size: 25px; margin-bottom: 8px; }
 .service-name a { color: var(--ink); text-decoration: none; }
 .service-name a:hover { color: var(--pink-deep); }
@@ -348,7 +348,7 @@ h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 500; line-height
 .site-footer { background: rgba(42, 26, 34, 0.96); color: rgba(255, 255, 255, 0.8); padding: 70px 0 32px; margin-top: 20px; border-top: 3px solid transparent; border-image: var(--gold-grad) 1; }
 .footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1.2fr; gap: 44px; margin-bottom: 44px; }
 .footer-logo { width: 88px; margin-bottom: 14px; }
-.footer-script { font-family: var(--font-script); font-size: 30px; color: var(--gold-light); line-height: 1.1; margin-bottom: 10px; }
+.footer-script { font-family: var(--font-heading); font-style: italic; font-size: 22px; color: var(--gold-light); line-height: 1.2; margin-bottom: 10px; }
 .footer-brand p { font-size: 14px; max-width: 320px; }
 .footer-heading { font-family: var(--font-body); font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold-light); margin-bottom: 16px; }
 .footer-grid ul { display: grid; gap: 10px; }
@@ -390,7 +390,7 @@ h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 500; line-height
 .promo-media img { width: 100%; height: 100%; object-fit: cover; border-radius: 14px 0 0 14px; }
 .promo-content { padding: 40px 38px 30px; display: flex; flex-direction: column; gap: 8px; }
 .promo-title { font-size: 40px; line-height: 1; }
-.promo-highlight { font-family: var(--font-script); font-size: 46px; color: var(--pink-deep); line-height: 1; margin: 2px 0 10px; }
+.promo-highlight { font-family: var(--font-heading); font-style: italic; font-weight: 500; font-size: 34px; color: var(--pink-deep); line-height: 1.1; margin: 2px 0 10px; }
 .promo-body { color: var(--ink-soft); margin-bottom: 14px; }
 .promo-dismiss { align-self: center; font-size: 13px; font-weight: 600; color: var(--ink-mute); text-decoration: underline; padding: 8px; }
 .promo-fine { font-size: 11.5px; color: var(--ink-mute); margin-top: 6px; }
@@ -518,7 +518,7 @@ h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 500; line-height
   .quick-book-grid { grid-template-columns: 1fr; }
   .quick-book-item { aspect-ratio: 3 / 2; max-height: 300px; border-left: 0 !important; border-top: 1px solid rgba(255, 255, 255, 0.35); }
   .quick-book-content { padding: 18px 18px 20px; }
-  .quick-book-title .script { font-size: 36px; }
+  .quick-book-title .script { font-size: 28px; }
   .about-content, .service-main, .contact-info, .testimonials, .google-card, .prose { padding: 28px 22px; }
   .membership-content { padding: 36px 24px; }
   .experience-grid { grid-template-columns: 1fr; }
@@ -534,7 +534,7 @@ h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 500; line-height
   .promo-modal { padding: 10px; }
   .promo-content { padding: 26px 20px 22px; }
   .promo-title { font-size: 32px; }
-  .promo-highlight { font-size: 38px; }
+  .promo-highlight { font-size: 30px; }
   .marquee-track span { font-size: 18px; }
 }
 @media (max-width: 400px) {
