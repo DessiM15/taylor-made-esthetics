@@ -539,7 +539,7 @@ export const ADDONS = {
 
 export const QUICK_BOOK = [
   { label: 'Waxing & Sugaring', sub: 'Smooth. Gentle. Confident.', path: BLVD.cats.waxing, href: 'services#waxing',
-    img: 'assets/taylor-portrait.jpg', pos: '50% 20%', alt: 'Taylor smiling in black scrubs inside her Pearland treatment suite.' },
+    img: 'assets/leg-sugaring-spa.jpg', pos: '50% 50%', alt: 'Gloved hands smoothing paste along a client\'s lower leg in a calm treatment room.' },
   { label: 'Customized Facials', sub: 'Cleanse. Hydrate. Rejuvenate.', path: BLVD.cats.skincare, href: 'services#her-facials',
     img: 'assets/taylor-facial-massage.jpg', pos: '50% 30%', alt: 'Taylor massaging a client\'s face during a facial beside a pink ring light.' },
   { label: 'Acne & Corrective Care', sub: 'Clear skin. Real results.', path: '/cart/menu/Skincare/s_cb1bc160-b62e-424c-93b9-dd068750fec9', href: 'services/anti-acne-facial',
