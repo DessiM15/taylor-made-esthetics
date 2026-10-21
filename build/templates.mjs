@@ -77,9 +77,8 @@ export function head({ title, description, canonical, image = '/assets/taylor-st
   <meta name="twitter:title" content="${esc(title)}">
   <meta name="twitter:description" content="${esc(description)}">
   <meta name="twitter:image" content="${esc(SITE.url + image)}">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/italiana-400.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/jost-variable.woff2" crossorigin>
 ${preload.map((p) => `  <link rel="preload" as="image" href="${p}" fetchpriority="high">\n`).join('')}  <link rel="preload" as="image" href="/assets/marble-pink-gold.webp">
   <link rel="stylesheet" href="/styles.css">
 ${schema.map((s) => `  <script type="application/ld+json">${JSON.stringify(s)}</script>`).join('\n')}
