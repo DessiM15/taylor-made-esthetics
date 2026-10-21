@@ -62,7 +62,7 @@ export const PROMO = {
   highlight: '50% off all services',
   body: 'Facials, body waxing, sugar waxing, skin care treatments and more, all half off for a limited time. Beautiful skin is always in season.',
   fine: 'Limited time. Discount applied at your appointment.',
-  image: 'assets/promo-spooky.jpg',
+  image: 'assets/promo-spooky.webp',
   imageAlt: 'Taylor Made Esthetics Halloween flyer: Spooky Good Deal, 50 percent off all services including facials, body waxing, sugar waxing and skin care treatments. A pink ghost holds a Glow Season cup beside pink pumpkins and candles.',
   cta: { label: 'Book now and save 50%', path: BLVD.menu },
 };
@@ -539,13 +539,13 @@ export const ADDONS = {
 
 export const QUICK_BOOK = [
   { label: 'Waxing & Sugaring', sub: 'Smooth. Gentle. Confident.', path: BLVD.cats.waxing, href: 'services#waxing',
-    img: 'assets/leg-sugaring-spa.jpg', pos: '50% 50%', alt: 'Gloved hands smoothing paste along a client\'s lower leg in a calm treatment room.' },
+    img: 'assets/leg-sugaring-spa.webp', pos: '50% 50%', alt: 'Gloved hands smoothing paste along a client\'s lower leg in a calm treatment room.' },
   { label: 'Customized Facials', sub: 'Cleanse. Hydrate. Rejuvenate.', path: BLVD.cats.skincare, href: 'services#her-facials',
-    img: 'assets/taylor-facial-massage.jpg', pos: '50% 30%', alt: 'Taylor massaging a client\'s face during a facial beside a pink ring light.' },
+    img: 'assets/taylor-facial-steam-client.webp', pos: '50% 45%', alt: 'Taylor resting a hand on a client\'s shoulder as a facial steamer mists her face in the treatment suite.' },
   { label: 'Acne & Corrective Care', sub: 'Clear skin. Real results.', path: '/cart/menu/Skincare/s_cb1bc160-b62e-424c-93b9-dd068750fec9', href: 'services/anti-acne-facial',
-    img: 'assets/client-glow-closeup.jpg', pos: '50% 30%', alt: 'Close-up of a client\'s clear, glowing skin after a corrective facial.' },
+    img: 'assets/client-glow-closeup.webp', pos: '50% 30%', alt: 'Close-up of a client\'s clear, glowing skin after a corrective facial.' },
   { label: 'Hydration & Rejuvenation', sub: 'Nourish. Restore. Glow.', path: '/cart/menu/Skincare/s_92da8177-f385-485a-beff-4a1cbc606830', href: 'services/hydrafacial',
-    img: 'assets/taylor-steam-facial.jpg', pos: '60% 45%', alt: 'Taylor directing a facial steamer over a relaxed client in a pink headband.' },
+    img: 'assets/taylor-steam-mist.webp', pos: '50% 72%', alt: 'Warm steam drifting over a relaxed client\'s face beneath a pink ring light.' },
 ];
 
 export const EXPERIENCE = [
@@ -569,18 +569,18 @@ export const MEMBERSHIP = {
 };
 
 export const GALLERY = [
-  { type: 'image', src: 'assets/taylor-steam-facial.jpg', w: 1200, h: 1600,
+  { type: 'image', src: 'assets/taylor-steam-facial.webp', w: 1000, h: 1333,
     alt: 'Taylor directing a facial steamer toward a client who is lying back on the treatment bed with a pink headband, inside the Taylor Made Esthetics suite.' },
-  { type: 'image', src: 'assets/client-glow-closeup.jpg', w: 1400, h: 2713,
+  { type: 'image', src: 'assets/client-glow-closeup.webp', w: 722, h: 1400,
     alt: 'Close-up of a client\'s face after a facial, showing clear, hydrated, glowing skin under a ring light.' },
-  { type: 'video', src: 'assets/client-first-facial.mp4', poster: 'assets/client-first-facial-poster.jpg', w: 720, h: 1280,
+  { type: 'video', src: 'assets/client-first-facial.mp4', poster: 'assets/client-first-facial-poster.webp', w: 720, h: 1280,
     alt: 'Short client video captioned "Come with me to get my first facial ever and my wedding in 9 days", showing her on the treatment bed in a pink headband with the caption "Glowing results".',
     caption: 'A bride-to-be\'s first facial, nine days before her wedding.' },
-  { type: 'image', src: 'assets/taylor-facial-massage.jpg', w: 802, h: 900,
+  { type: 'image', src: 'assets/taylor-facial-massage.webp', w: 802, h: 900,
     alt: 'Taylor, in black scrubs, gently massaging a client\'s face during a facial, with a pink ring light beside the bed.' },
-  { type: 'image', src: 'assets/taylor-facial-treatment.jpg', w: 843, h: 900,
+  { type: 'image', src: 'assets/taylor-facial-treatment.webp', w: 842, h: 900,
     alt: 'Taylor applying product to a client\'s cheeks with both hands during a facial, with a ring light and skincare equipment in the background.' },
-  { type: 'image', src: 'assets/taylor-portrait.jpg', w: 1000, h: 1888,
+  { type: 'image', src: 'assets/taylor-portrait.webp', w: 529, h: 1000,
     alt: 'Taylor smiling in black scrubs beside her appointment board in the suite.' },
 ];
 

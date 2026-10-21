@@ -53,7 +53,7 @@ const navLinks = [
   ['/#contact', 'Contact'],
 ];
 
-export function head({ title, description, canonical, image = '/assets/taylor-steam-facial.jpg', schema = [], noindex = false }) {
+export function head({ title, description, canonical, image = '/assets/taylor-steam-facial.jpg', schema = [], noindex = false, preload = [] }) {
   const url = SITE.url + canonical;
   return `<!DOCTYPE html>
 <html lang="en">
@@ -65,8 +65,8 @@ export function head({ title, description, canonical, image = '/assets/taylor-st
   <meta name="robots" content="${noindex ? 'noindex, follow' : 'index, follow'}">
   <link rel="canonical" href="${esc(url)}">
   <meta name="theme-color" content="#f8dde6">
-  <link rel="icon" href="/assets/tme-logo.png" type="image/png">
-  <link rel="apple-touch-icon" href="/assets/tme-logo.png">
+  <link rel="icon" href="/assets/tme-icon-180.png" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/tme-icon-180.png">
   <meta property="og:site_name" content="${esc(SITE.name)}">
   <meta property="og:title" content="${esc(title)}">
   <meta property="og:description" content="${esc(description)}">
@@ -80,7 +80,7 @@ export function head({ title, description, canonical, image = '/assets/taylor-st
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="preload" as="image" href="/assets/marble-pink-gold.jpg">
+${preload.map((p) => `  <link rel="preload" as="image" href="${p}" fetchpriority="high">\n`).join('')}  <link rel="preload" as="image" href="/assets/marble-pink-gold.webp">
   <link rel="stylesheet" href="/styles.css">
 ${schema.map((s) => `  <script type="application/ld+json">${JSON.stringify(s)}</script>`).join('\n')}
 </head>`;
@@ -95,7 +95,7 @@ export function header(current = '') {
 <header class="site-header" id="site-header">
   <div class="nav-container">
     <a href="/" class="nav-logo" aria-label="${esc(SITE.name)} home">
-      <img src="/assets/tme-logo.png" alt="" width="84" height="86">
+      <img src="/assets/tme-logo-sm.webp" alt="" width="84" height="86">
     </a>
     <nav class="nav-primary" aria-label="Primary">
       <ul class="nav-links">${navLinks.map(link).join('')}</ul>
@@ -124,7 +124,7 @@ export function footer() {
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <img src="/assets/tme-logo.png" alt="" width="88" height="90" class="footer-logo">
+        <img src="/assets/tme-logo-sm.webp" alt="" width="88" height="90" class="footer-logo">
         <p class="footer-tag">Your glow. Your confidence. Your self care.</p>
         <p>Licensed esthetician in a private suite at Pearland Town Center. Facials, waxing, sugaring and corrective skincare for women and men.</p>
       </div>
@@ -308,6 +308,7 @@ export function homePage() {
     description: 'Taylor Made Esthetics is a licensed esthetician in Pearland Town Center offering facials, HydraFacial, Brazilian waxing, sugaring and men\'s grooming in a private suite. Book online in seconds.',
     canonical: '/',
     schema: [businessSchema(), faqSchema(FAQ)],
+    preload: ['/assets/hero-facial-poster.webp'],
   })}
 <body class="home">
 ${header('')}
@@ -315,8 +316,8 @@ ${header('')}
 
   <section class="hero hero-bleed hero-full" aria-labelledby="hero-title">
     <div class="hero-bg" aria-hidden="true">
-      <video class="hero-video" muted loop playsinline preload="metadata" poster="/assets/hero-facial-poster.jpg" data-autoplay>
-        <source src="/assets/hero-facial.mp4" type="video/mp4">
+      <video class="hero-video" muted loop playsinline preload="metadata" poster="/assets/hero-facial-poster.webp" data-autoplay>
+        <source src="/assets/hero-facial-v2.mp4" type="video/mp4">
       </video>
       <div class="hero-wash"></div>
     </div>
@@ -362,11 +363,11 @@ ${header('')}
     <div class="container about-grid">
       <div class="about-media">
         <div class="arch arch-photo gold-frame">
-          <img src="/assets/taylor-arch.jpg" alt="Taylor, a licensed esthetician with blonde curls and black scrubs, smiling on a pink velvet sofa in her Pearland suite." width="515" height="575" loading="lazy">
+          <img src="/assets/taylor-arch.webp" alt="Taylor, a licensed esthetician with blonde curls and black scrubs, smiling on a pink velvet sofa in her Pearland suite." width="515" height="575" loading="lazy">
         </div>
         <div class="about-thumbs">
-          <img src="/assets/taylor-facial-massage.jpg" alt="Taylor gently massaging a client's face during a facial, with a pink ring light beside the bed." width="802" height="900" loading="lazy">
-          <img src="/assets/taylor-facial-treatment.jpg" alt="Taylor applying product to a client's cheeks with both hands during a facial." width="843" height="900" loading="lazy">
+          <img src="/assets/taylor-facial-massage.webp" alt="Taylor gently massaging a client's face during a facial, with a pink ring light beside the bed." width="802" height="900" loading="lazy">
+          <img src="/assets/taylor-facial-treatment.webp" alt="Taylor applying product to a client's cheeks with both hands during a facial." width="842" height="900" loading="lazy">
         </div>
       </div>
       <div class="about-content panel">
@@ -426,7 +427,7 @@ ${header('')}
           ${bookLink(MEMBERSHIP.path, 'Become a VIP')}
         </div>
         <div class="membership-media">
-          <video class="membership-video" muted loop playsinline preload="metadata" poster="/assets/vip-facial-poster.jpg" aria-label="An esthetician smoothing a sheet mask over a client's face by candlelight." data-autoplay>
+          <video class="membership-video" muted loop playsinline preload="none" poster="/assets/vip-facial-poster.webp" data-lazy aria-label="An esthetician smoothing a sheet mask over a client's face by candlelight." data-autoplay>
             <source src="/assets/vip-facial.mp4" type="video/mp4">
           </video>
           <button type="button" class="video-toggle" data-video-toggle aria-label="Pause video" aria-pressed="false">${ICONS.pause}${ICONS.play}</button>

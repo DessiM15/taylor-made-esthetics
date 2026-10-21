@@ -183,12 +183,24 @@
       btn.setAttribute('aria-pressed', String(paused));
       btn.setAttribute('aria-label', paused ? 'Play background video' : 'Pause background video');
     };
-    if (reducedMotion) { setBtn(true); }
-    else {
+    var start = function () {
       var p = video.play();
       if (p && p.catch) p.catch(function () { setBtn(true); });
       setBtn(false);
+    };
+    if (reducedMotion) { setBtn(true); }
+    else if (video.hasAttribute('data-lazy') && 'IntersectionObserver' in window) {
+      // Off-screen loops wait until they are about to scroll into view, so they never compete with the hero.
+      var userPaused = false;
+      if (btn) btn.addEventListener('click', function () { userPaused = video.paused; });
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) { if (!userPaused) start(); }
+          else if (!video.paused) { video.pause(); }
+        });
+      }, { rootMargin: '200px 0px' }).observe(video);
     }
+    else { start(); }
     if (btn) btn.addEventListener('click', function () {
       if (video.paused) { video.play(); setBtn(false); } else { video.pause(); setBtn(true); }
     });
